@@ -28,11 +28,13 @@ int get_distance(vl6180 handle);
 /// \param handle The handle to the sensor given by vl6180_initialise
 /// \param scaling Index of the scaling mode to use
 void set_scaling(vl6180 handle, int scaling);
-  
+
+/*
 //hack:add access to lower_level functions
 int read_byte(vl6180 handle, int reg);
 void write_byte(vl6180 handle, int reg, char data);
 void write_two_bytes(vl6180 handle, int reg, int data);
+*/
 
 #ifdef __cplusplus
 }
