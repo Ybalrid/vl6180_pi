@@ -129,14 +129,17 @@ vl6180 vl6180_initialise_address(int device, int addr){
         // Recommended : Public registers - See data sheet for more detail
 
         write_byte(handle,0x0011, 0x10); // Enables polling for ‘New Sample ready’ when measurement completes
-        write_byte(handle,0x010a, 0x30); // Set the averaging sample period (compromise between lower noise and increased execution time)
+        write_byte(handle,0x010a, 0x20); // Set the averaging sample period (compromise between lower noise and increased execution time)
         write_byte(handle,0x003f, 0x46); // Sets the light and dark gain (upper nibble). Dark gain should not be changed.
         write_byte(handle,0x0031, 0xFF); // sets the # of range measurements after which auto calibration of system is performed
         write_byte(handle,0x0040, 0x63); // Set ALS integration time to 100ms
         write_byte(handle,0x002e, 0x01); // perform a single temperature calibratio of the ranging sensor
-        write_byte(handle,0x001b, 0x09); // Set default ranging inter-measurement period to 100ms
+        write_byte(handle,0x001b, 0x03); // Set default ranging inter-measurement period to 40ms
         write_byte(handle,0x003e, 0x31); // Set default ALS inter-measurement period to 500ms
         write_byte(handle,0x0014, 0x24); // Configures interrupt on ‘New Sample Ready threshold event’ 
+        
+
+        write_byte(handle, 0x001C, 0x05);
 
         write_byte(handle,0x016, 0x00);
     }
