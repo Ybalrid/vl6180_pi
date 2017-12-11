@@ -37,7 +37,7 @@ void write_two_bytes(vl6180 handle, int reg,int data) {
     write(handle, data_write, 4);
 }
 
-void start_range(vl6180 handle) {
+void vl6180_start_range(vl6180 handle) {
     write_byte(handle, 0x018,0x01);
 }
 
@@ -45,15 +45,8 @@ void poll_range(vl6180 handle) {
     char status;
     char range_status;
 
-    // check the status
-    status = read_byte(handle,0x04f);
-    range_status = status & 0x07;
-
     // wait for new measurement ready status
-    while (range_status != 0x04) {
-        status = read_byte(handle,0x04f);
-        range_status = status & 0x07;
-    }
+    while (!vl6180_is_range_available(handle));
 }
 
 void clear_interrupts(vl6180 handle) {
@@ -154,11 +147,22 @@ void vl6180_change_addr(vl6180 handle, int newAddr)
 
 int get_distance(vl6180 handle){
 
-    int range;
-    start_range(handle);
+    vl6180_start_range(handle);
     poll_range(handle);
+    return vl6180_read_distance_result(handle);
 
+}
+
+int vl6180_read_distance_result(vl6180 handle)
+{
+    
+    int range;
     range=read_byte(handle,0x063);
     clear_interrupts(handle);
     return range;
+}
+
+bool vl6180_is_range_available(vl6180 handle)
+{
+    return (read_byte(handle, 0x4F) & 0x07) == 0x04;
 }

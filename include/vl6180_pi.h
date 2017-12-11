@@ -1,5 +1,10 @@
+#ifndef VL6180_PI_INCLUDED
+#define VL6180_PI_INCLUDED
+
 #ifdef __cplusplus
 extern "C"{
+#else 
+#include <stdbool.h>
 #endif 
 
 typedef int vl6180;
@@ -34,6 +39,13 @@ int get_distance(vl6180 handle);
 /// \param scaling Index of the scaling mode to use
 void set_scaling(vl6180 handle, int scaling);
 
+///Start range measurement
+/// \param handle The handle to the sensor given by vl6180_initialise
+void vl6180_start_ragne(vl6180 handle);
+bool vl6180_is_range_available(vl6180 handle);
+
+int vl6180_read_distance_result(vl6180 handle);
+
 /*
 //hack:add access to lower_level functions
 int read_byte(vl6180 handle, int reg);
@@ -43,4 +55,5 @@ void write_two_bytes(vl6180 handle, int reg, int data);
 
 #ifdef __cplusplus
 }
+#endif
 #endif
