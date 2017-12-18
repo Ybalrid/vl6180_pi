@@ -41,7 +41,7 @@ void set_scaling(vl6180 handle, int scaling);
 
 ///Start range measurement
 /// \param handle The handle to the sensor given by vl6180_initialise
-void vl6180_start_ragne(vl6180 handle);
+void vl6180_start_range(vl6180 handle);
 bool vl6180_is_range_available(vl6180 handle);
 
 int vl6180_read_distance_result(vl6180 handle);
