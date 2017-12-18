@@ -39,19 +39,19 @@ int get_distance(vl6180 handle);
 /// \param scaling Index of the scaling mode to use
 void set_scaling(vl6180 handle, int scaling);
 
-///Start range measurement
+///Start range measurement. You need to wait until vl6180_is_range_available starts returning true
+///To get the value, use vl6180_read_distance_result
 /// \param handle The handle to the sensor given by vl6180_initialise
 void vl6180_start_range(vl6180 handle);
+
+///Return true if measurement is available after calling vl6180_start_range
+/// \param handle The handle to the sensor given by vl6180_initialise
 bool vl6180_is_range_available(vl6180 handle);
 
+///Return the measured value according to the current scalling after vl6180_start_range has been called
+/// \param handle The handle to the sensor given by vl6180_initialise
 int vl6180_read_distance_result(vl6180 handle);
 
-/*
-//hack:add access to lower_level functions
-int read_byte(vl6180 handle, int reg);
-void write_byte(vl6180 handle, int reg, char data);
-void write_two_bytes(vl6180 handle, int reg, int data);
-*/
 
 #ifdef __cplusplus
 }
